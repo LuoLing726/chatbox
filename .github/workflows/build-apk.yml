@@ -30,7 +30,7 @@ jobs:
           export CHATBOX_BUILD_TARGET=mobile_app
           export CHATBOX_BUILD_PLATFORM=android
           npx electron-vite build
-          echo '{"appId":"xyz.chatboxapp.ce"}' > capacitor.config.json
+          echo '{"appId":"xyz.chatboxapp.ce","appName":"Chatbox"}' > capacitor.config.json
           npx cap add android
           npx cap sync android
 
