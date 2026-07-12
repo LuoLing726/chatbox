@@ -29,7 +29,9 @@ jobs:
 
       - name: Build web and sync Android
         run: |
-          cross-env CHATBOX_BUILD_TARGET=mobile_app CHATBOX_BUILD_PLATFORM=android npx electron-vite build
+          export CHATBOX_BUILD_TARGET=mobile_app
+          export CHATBOX_BUILD_PLATFORM=android
+          npx electron-vite build
           npx cap sync android
 
       - name: Build Android APK
@@ -43,3 +45,4 @@ jobs:
         with:
           name: chatbox-release-apk
           path: android/app/build/outputs/apk/release/app-release.apk
+          
