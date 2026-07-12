@@ -45,6 +45,9 @@ jobs:
           cd android
           chmod +x gradlew
           ./gradlew assembleRelease
+          echo "========== Looking for APK =========="
+          find . -name "*.apk" -type f 2>/dev/null
+          echo "======================================"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
