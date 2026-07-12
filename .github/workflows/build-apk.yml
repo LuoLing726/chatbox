@@ -30,12 +30,7 @@ jobs:
           export CHATBOX_BUILD_TARGET=mobile_app
           export CHATBOX_BUILD_PLATFORM=android
           npx electron-vite build
-          echo "========== Listing directories =========="
-          ls -la out 2>/dev/null || echo "out directory not found"
-          ls -la release/app/dist 2>/dev/null || echo "release/app/dist not found"
-          find . -name index.html -type f 2>/dev/null | head -5
-          echo "========================================="
-          echo '{"appId":"xyz.chatboxapp.ce","appName":"Chatbox","webDir":"out/renderer"}' > capacitor.config.json
+          echo '{"appId":"xyz.chatboxapp.ce","appName":"Chatbox","webDir":"release/app/dist/renderer"}' > capacitor.config.json
           npx cap add android
           npx cap sync android
 
