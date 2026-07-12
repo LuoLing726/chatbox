@@ -30,6 +30,13 @@ jobs:
           export CHATBOX_BUILD_TARGET=mobile_app
           export CHATBOX_BUILD_PLATFORM=android
           npx electron-vite build
+          # 确保 capacitor.config.json 有 appId
+          node -e "
+            const fs = require('fs');
+            const config = JSON.parse(fs.readFileSync('capacitor.config.json', 'utf8'));
+            if (!config.appId) config.appId = 'xyz.chatboxapp.ce';
+            fs.writeFileSync('capacitor.config.json', JSON.stringify(config, null, 2));
+          "
           npx cap add android
           npx cap sync android
 
@@ -44,4 +51,3 @@ jobs:
         with:
           name: chatbox-release-apk
           path: android/app/build/outputs/apk/release/app-release.apk
-          
