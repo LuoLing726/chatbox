@@ -295,21 +295,20 @@ const _Message: FC<Props> = (props) => {
     () => [
       ...(isSmallScreen
         ? [
-          {/* 隐藏重新生成当前消息 start
-            !msg.generating &&
+
+            false && !msg.generating &&
               msg.role === 'assistant' && {
                 text: t('Reply Again'),
                 icon: IconReload,
                 onClick: handleRefresh,
               },
-              隐藏 end */}
-          {/* 隐藏在下方重新生成 start
-            msg.role !== 'assistant' && {
+
+            false && msg.role !== 'assistant' && {
               text: t('Reply Again Below'),
               icon: IconArrowDown,
               onClick: onGenerateMore,
             },
-            隐藏 end */}
+
             !msg.model?.startsWith('Chatbox-AI') &&
               !(msg.role === 'assistant' && props.sessionType === 'picture') && {
                 text: t('Edit'),
@@ -577,17 +576,14 @@ const _Message: FC<Props> = (props) => {
             : ''
         }
       >
-        {/* 隐藏 Reply Again
-        {!msg.generating && msg.role === 'assistant' && (
+        {false && !msg.generating && msg.role === 'assistant' && (
           <MessageActionIcon icon={IconReload} tooltip={t('Reply Again')} onClick={handleRefresh} />
         )}
-          */}
-
-          {/* 隐藏 Reply Again Below
-        {msg.role !== 'assistant' && (
+        
+        {false && msg.role !== 'assistant' && (
           <MessageActionIcon icon={IconArrowDown} tooltip={t('Reply Again Below')} onClick={onGenerateMore} />
         )}
-          */}
+        
 
         {!msg.model?.startsWith('Chatbox-AI') && !(msg.role === 'assistant' && props.sessionType === 'picture') && (
           <MessageActionIcon icon={IconPencil} tooltip={t('Edit')} onClick={onEditClick} />
