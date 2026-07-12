@@ -42,23 +42,18 @@ jobs:
 
       - name: Set up signing
         run: |
-          # 生成一个临时 keystore（密码和别名都是固定的，只用于签名安装，不用于发布）
           keytool -genkeypair -v \
-            -keystore chatbox-release.keystore \
+            -keystore android/chatbox-release.keystore \
             -alias chatbox \
             -keyalg RSA -keysize 2048 -validity 10000 \
             -storepass android \
             -keypass android \
             -dname "CN=Chatbox, OU=Dev, O=Chatbox, L=Earth, S=Online, C=US"
-          # 创建 key.properties 文件
-          echo "storeFile=chatbox-release.keystore" > android/key.properties
-          echo "storePassword=android" >> android/key.properties
-          echo "keyAlias=chatbox" >> android/key.properties
-          echo "keyPassword=android" >> android/key.properties
+          echo "Checking keystore file:"
+          ls -la android/chatbox-release.keystore
 
       - name: Configure Gradle build with signing config
         run: |
-          # 在 app/build.gradle 末尾追加签名配置
           cat >> android/app/build.gradle << 'EOF'
           
           android {
@@ -83,9 +78,6 @@ jobs:
           cd android
           chmod +x gradlew
           ./gradlew assembleRelease
-          echo "========== Looking for signed APK =========="
-          find . -name "*.apk" -type f 2>/dev/null
-          echo "============================================="
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
